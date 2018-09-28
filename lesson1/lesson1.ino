@@ -1,40 +1,39 @@
-/*
-LED 
 
- This example shows how to fade an LED on pin 9
- using the analogWrite() function.
+int ledPin1 = 5; // first LED on pin 5
+int ledPin2 = 9; // second LED on pin 9
+int brightness1 = 0; // minimum brightness
+int brightness2 = 255; // maximum brightness
+int fadeAmount = 11; // how many points to fade the LED by
+int fadeAmount2 = 200; // how many points to fade the LED by
+int wait = 2000;
 
- The analogWrite() function uses PWM, so if
- you want to change the pin you're using, be
- sure to use another PWM capable pin. On most
- Arduino, the PWM pins are identified with 
- a "~" sign, like ~3, ~5, ~6, ~9, ~10 and ~11.
-
- This example code is in the public domain.
- */
-
-int led = 9;           // the PWM pin the LED is attached to
-int brightness = 0;    // how bright the LED is
-int fadeAmount = 5;    // how many points to fade the LED by
 
 // the setup routine runs once when you press reset:
 void setup() {
-  // declare pin 9 to be an output:
-  pinMode(led, OUTPUT);
+// declare led pins to be outputs:
+pinMode(ledPin1, OUTPUT);
+pinMode(ledPin2, OUTPUT);
 }
 
 // the loop routine runs over and over again forever:
 void loop() {
-  // set the brightness of pin 9:
-  analogWrite(led, brightness);
-
+  // set the brightness of LED's:
+  analogWrite(ledPin1, brightness1);
+  analogWrite(ledPin2, brightness2);
+  
   // change the brightness for next time through the loop:
-  brightness = brightness + fadeAmount;
-
+  brightness1 = brightness1 - fadeAmount;
+  brightness2 = brightness2 - fadeAmount2;
+  
   // reverse the direction of the fading at the ends of the fade:
-  if (brightness <= 0 || brightness >= 255) {
-    fadeAmount = -fadeAmount;
+  if (brightness1 == 0 || brightness1 == 255){
+    fadeAmount = -fadeAmount ;
   }
+  // reverse the direction of the fading at the ends of the fade:
+  if (brightness2 == 0 || brightness2 == 125){
+    fadeAmount2 = -fadeAmount2 ;
+  }
+  
   // wait for 30 milliseconds to see the dimming effect
-  delay(30);
+  delay(wait);
 }
